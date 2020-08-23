@@ -63,6 +63,7 @@ func ChatsGet(db *sql.DB, user int64) (chats []UserChats, err error) {
 	if err != nil {
 		return []UserChats{}, err
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 		var chat UserChats
@@ -86,6 +87,7 @@ func ChatsGet(db *sql.DB, user int64) (chats []UserChats, err error) {
 			chat.Users = append(chat.Users, user)
 		}
 		chats = append(chats, chat)
+		usersRows.Close()
 	}
 	return
 }
