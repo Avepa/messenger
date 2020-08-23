@@ -46,6 +46,7 @@ func MessagesGet(db *sql.DB, chat int64) (messages []Messages, err error) {
 	if err != nil {
 		return []Messages{}, err
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 		message := Messages{Chat: chat}
